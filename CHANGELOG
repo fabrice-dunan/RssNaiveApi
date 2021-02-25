@@ -1,0 +1,10 @@
+* 0.5
+- initial Java API release
+
+* 1.0
+- Added SpringBoot support
+- Added RSS source feed refresh schedule
+
+* 2.0
+- Use openAPI / swagger for API design
+- Travis CI

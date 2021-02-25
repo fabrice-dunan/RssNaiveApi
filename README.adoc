@@ -1,0 +1,155 @@
+// suppress inspection "SpellCheckingInspection" for whole file
+// suppress inspection "GrazieInspection" for whole file
+= RssNaiveApi project
+:toc:
+:hardbreaks:
+
+This API is intended to be used as a Java component.
+Several ways to tests it :
+
+* REST API
+* JUnit unit tests
+* Naive Main
+
+See infra.
+
+== Build and unit test
+
+Just type text hereafter after git clone :
+
+ mvn clean verify
+
+successfully built w/ :
+
+* Maven 3.6.3
+* OpenJDK version 11.0.10
+* on Ubuntu 21.04.
+
+succesfully unit tests w/ :
+
+* JUnit 5
+
+== Packaging
+
+All elements are packaged as a Jar archive, including SpringBoot application.
+
+Source and javadoc Jars are also provided to help developer to use the API.
+
+== Java API
+
+=== Features
+
+It exposes two methods.
+
+==== getTitlesAndUrls
+
+Designed to answer this user story :
+
+_As a user, I want to search and consult RSS feeds from several sources, for example :
+- https://www.wired.com/feed/category/science/latest/rss
+- https://www.techrepublic.com/rssfeeds/articles/
+- ..._
+
+This method returns a Collection of titles and URL.
+The developer can show them in a UI for User interaction.
+
+==== addFeed
+
+Designed to answer this user story :
+
+_As an admin, I can add and configure new RSS feeds into the system.
+The configuration must include :
+- The feed URL - The periodicity (how often the feed is refreshed) : each minute, each hour, each 12 hours, each day etc._
+
+This method permits to add a Feed source and the period after which it will be refreshed.
+
+=== Maven artifact GAV
+
+.to import set in your POM :
+....
+    <groupId>org.fdu.application</groupId>
+    <artifactId>RssNaiveApi</artifactId>
+    <version>1.0.0</version>
+....
+
+== How to manual test the API ?
+
+=== (preferred) via SpringBoot REST service application
+
+==== Run application
+
+.Run it with Maven
+ $ mvn spring-boot:run
+
+.Or run it with Java CLI
+ $ java -jar target/RssNaiveApi-1.0.jar org.fdu.application.RssNaiveApplication
+
+==== Test the Springboot REST Service
+
+===== add feeds
+* Use curl
+
+....
+curl \
+    --header "Content-type: application/json" \
+    --request POST \
+    --data '{"urlStr":"source feed url","refreshDurationStr":"timeToRefresh"}' \
+    http://localhost:8080/addfeed
+....
+
+.examples
+....
+// suppress inspection "GrazieInspection"
+// suppress inspection "SpellCheckingInspection"
+fdunan@M:~/Bureau/code/git/gitlab.com/RssNaiveApi$ curl     --header "Content-type: application/json"     --request POST     -wired.com/feed/category/science/latest/rssepublic.com/rssfeeds/articles/","refreshDurationStr":"PT15M"}'     http://localhost:8080/addfeed
+Added Science Latest
+fdunan@M:~/Bureau/code/git/gitlab.com/RssNaiveApi$ curl     --header "Content-type: application/json"     --request POST     --data '{"urlStr":"https://www.techrepublic.com/rssfeeds/articles/","refreshDurationStr":"PT15M"}'     http://localhost:8080/addfeed
+Added Articles on TechRepublic
+....
+
+* Use postman or other tool to test (files NOT included in repo)
+
+IMPORTANT: To create a Duration object based on a text sequence, this has to be of the form “PnDTnHnMn.nS”:
+cf https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html#parse-java.lang.CharSequence-
+
+===== get feeds
+* use curl (preferred)
+
+ curl --header "Content-type: application/json" --request GET http://localhost:8080/getfeeds
+
+* use a browser :
+
+ http://localhost:8080/getfeeds
+
+=== Via unit Tests
+
+Use JUnit5 tests in :
+
+* any IDE.
+* via CLI
+
+ mvn tests
+
+Tested in : IntelliJ 2020.3
+
+=== Via naive Main for NaiveRssApi
+
+Launch
+
+ src/test/java/org/fdu/application/RssNaiveImplMain.java
+
+in any IDE.
+
+Tested in : IntelliJ 2020.3
+
+== How to automatically test the API ?
+
+=== Gitlab CI
+
+With autodevops it has been tested on a experimental Gitlab repository.
+
+== Go further
+
+* Use openAPI/swagger to design the API
+* Travis CI
+* enhance Springboot test
