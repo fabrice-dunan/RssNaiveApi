@@ -144,6 +144,10 @@ Tested in : IntelliJ 2020.3
 
 == How to automatically test the API ?
 
+=== GitHub actions
+
+GitHub Actions have been tested to automatize build/unit test actions.
+
 === Gitlab CI
 
 With autodevops it has been tested on a experimental Gitlab repository.
@@ -152,4 +156,4 @@ With autodevops it has been tested on a experimental Gitlab repository.
 
 * Use openAPI/swagger to design the API
 * Travis CI
-* enhance Springboot test
+* Enhance Springboot test to run automatically functionnal tests
