@@ -99,11 +99,16 @@ curl \
 
 .examples
 ....
-// suppress inspection "GrazieInspection"
-// suppress inspection "SpellCheckingInspection"
-fdunan@M:~/Bureau/code/git/gitlab.com/RssNaiveApi$ curl     --header "Content-type: application/json"     --request POST     -wired.com/feed/category/science/latest/rssepublic.com/rssfeeds/articles/","refreshDurationStr":"PT15M"}'     http://localhost:8080/addfeed
+$ curl --header "Content-type: application/json" \
+    --request POST \
+    --data '{"urlStr":"https://www.wired.com/feed/category/science/latest/rss","refreshDurationStr":"PT15M"}' \
+    http://localhost:8080/addfeed
 Added Science Latest
-fdunan@M:~/Bureau/code/git/gitlab.com/RssNaiveApi$ curl     --header "Content-type: application/json"     --request POST     --data '{"urlStr":"https://www.techrepublic.com/rssfeeds/articles/","refreshDurationStr":"PT15M"}'     http://localhost:8080/addfeed
+
+$ curl --header "Content-type: application/json" \
+    --request POST \
+    --data '{"urlStr":"https://www.techrepublic.com/rssfeeds/articles/","refreshDurationStr":"PT15M"}' \
+    http://localhost:8080/addfeed
 Added Articles on TechRepublic
 ....
 
