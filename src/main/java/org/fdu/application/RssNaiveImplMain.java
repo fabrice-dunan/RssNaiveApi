@@ -14,7 +14,7 @@ public class RssNaiveImplMain {
     public static final String FEEDS_URL_1 = "https://www.techrepublic.com/rssfeeds/articles/";
     public static final String FEEDS_URL_2 = "https://www.wired.com/feed/category/science/latest/rss";
 
-    static Logger logger = LoggerFactory.getLogger(RssNaiveImplMain.class);
+    static final Logger logger = LoggerFactory.getLogger(RssNaiveImplMain.class);
 
     public static void main(String[] args) {
         IRssNaive rssNaive = new RssNaiveImpl();
