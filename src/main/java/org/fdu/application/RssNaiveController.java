@@ -1,5 +1,6 @@
 package org.fdu.application;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.rometools.rome.io.FeedException;
 import lombok.extern.slf4j.Slf4j;
 import org.fdu.application.obj.FeedAdminInput;
@@ -47,14 +48,11 @@ public class RssNaiveController {
     }
 
     @RequestMapping(value = "/getfeeds", method = RequestMethod.GET)
-    public String getFeeds() {
+    public String getFeeds() throws JsonProcessingException {
         log.debug("\n*************  GET /getfeeds  ************");
         ArrayList<FeedEntryMetadata> datas = rss.getTitlesAndUrls();
-        StringBuilder titlesAndUrls = new StringBuilder();
-        for (FeedEntryMetadata feedEntryMetadata : datas) {
-            titlesAndUrls.append(feedEntryMetadata.toString()).append("\n");
-        }
-        return titlesAndUrls.toString();
+        return RssNaiveImpl.out2JsonString(datas);
     }
+
 
 }

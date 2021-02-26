@@ -1,9 +1,13 @@
-* 0.5
+* 0.5.0
 - initial Java API release
 
-* 1.0
+* 1.0.0
 - Added SpringBoot support
 - Added RSS source feed refresh schedule
+
+* 1.1.0
+- Added ordered JSON output support
+- Fixed mismatch feedEntryData URL/description
 
 * 2.0
 - Use openAPI / swagger for API design

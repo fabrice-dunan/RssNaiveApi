@@ -1,5 +1,8 @@
 package org.fdu.application;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
@@ -43,7 +46,7 @@ public class RssNaiveImpl implements IRssNaive {
                 log.debug("\nTitre {}", title);
                 String desc = entry.getDescription().getValue();
                 log.debug("Desc {}\n", title);
-                feedEntryMetadata = new FeedEntryMetadata(title, entry.getLink(), desc);
+                feedEntryMetadata = new FeedEntryMetadata(title, desc, entry.getLink());
                 entriesTitlesAndUrls.add(feedEntryMetadata);
             }
         }
@@ -59,5 +62,30 @@ public class RssNaiveImpl implements IRssNaive {
         return subscription;
     }
 
+    /**
+     * Helper to convert ArrayList of FeedEntryMetadata to String
+     *
+     * @param datas - an array of FeedEntryMetadata
+     * @return String
+     */
+    public static String out2String(ArrayList<FeedEntryMetadata> datas) {
+        StringBuilder titlesAndUrls = new StringBuilder();
+        for (FeedEntryMetadata feedEntryMetadata : datas) {
+            titlesAndUrls.append(feedEntryMetadata.toString()).append("\n");
+        }
+        return titlesAndUrls.toString();
+    }
+
+    /**
+     * Helper to convert ArrayList of FeedEntryMetadata to JSONArray
+     *
+     * @param datas - an array of FeedEntryMetadata
+     * @return JSONArray
+     */
+    public static String out2JsonString(ArrayList<FeedEntryMetadata> datas) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        return objectMapper.writeValueAsString(datas);
+    }
 
 }

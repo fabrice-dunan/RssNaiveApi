@@ -42,7 +42,7 @@ public interface IRssNaive {
     Subscription addFeed(String feedUrl, Duration pollInterval) throws IOException, FeedException;
 
     /**
-     * Additionnal method which permits to get more infos as far as the Feed sources, entries,... are concerned.
+     * Additional method which permits to get more infos as far as the Feed sources, entries,... are concerned.
      * It may be used to update fetch duration parameters...
      * <p>
      * The map key is the String which represents feed source URL.
