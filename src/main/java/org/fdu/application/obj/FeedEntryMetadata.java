@@ -9,16 +9,12 @@ import lombok.ToString;
 @JsonPropertyOrder({"entryTitle", "entryDesc", "entryUrl"})
 @AllArgsConstructor
 @ToString
+@Setter
+@Getter
 public class FeedEntryMetadata {
-    @Setter
-    @Getter
     private String entryTitle;
 
-    @Setter
-    @Getter
     private String entryDesc;
 
-    @Setter
-    @Getter
     private String entryUrl;
 }

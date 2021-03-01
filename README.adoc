@@ -11,7 +11,14 @@ Several ways to tests it :
 * JUnit unit tests
 * Naive Main
 
-See infra.
+See below.
+
+== Development
+
+The entire code has been developed under IDEA IntelliJ 2020.3 with some additionnal plugins :
+
+* Lombok
+* Junit
 
 == Build and unit test
 
@@ -72,6 +79,8 @@ This method permits to add a Feed source and the period after which it will be r
     <version>1.0.0</version>
 ....
 
+WARNING: The RssNaiveApi artifact must have been deployed in a repository (example : Nexus) before using it in a POM.
+
 == How to manual test the API ?
 
 === (preferred) via SpringBoot REST service application
@@ -87,8 +96,8 @@ This method permits to add a Feed source and the period after which it will be r
 ==== Test the Springboot REST Service
 
 ===== add feeds
-* Use curl
 
+.Use curl to test the REST API
 ....
 curl \
     --header "Content-type: application/json" \
@@ -112,19 +121,30 @@ $ curl --header "Content-type: application/json" \
 Added Articles on TechRepublic
 ....
 
-* Use postman or other tool to test (files NOT included in repo)
-
 IMPORTANT: To create a Duration object based on a text sequence, this has to be of the form “PnDTnHnMn.nS”:
 cf https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html#parse-java.lang.CharSequence-
 
+Alternative :  Use postman or other tool to test (files NOT included in repo)
+
 ===== get feeds
-* use curl (preferred)
 
- curl --header "Content-type: application/json" --request GET http://localhost:8080/getfeeds
+.use curl
+ curl -s --header "Content-type: application/json" --request GET http://localhost:8080/getfeeds |jq
 
-* use a browser :
+.example
+....
+$ curl -s --header "Content-type: application/json" --request GET http://localhost:8080/getfeeds |jq
+[
+  {
+    "entryTitle": "The Raging Evolutionary War Between Humans and Covid-19",
+    "entryDesc": "Fighting the pandemic isn’t only about vaccines and drugs. It’s about understanding how viruses mutate and change inside us, and among us.",
+    "entryUrl": "https://www.wired.com/story/the-raging-evolutionary-war-between-humans-and-covid-19"
+  },
+  {
+...
+....
 
- http://localhost:8080/getfeeds
+IMPORTANT: don't forget to pipe with 'jq' to make the output human readable.
 
 === Via unit Tests
 
@@ -141,7 +161,7 @@ Tested in : IntelliJ 2020.3
 
 Launch
 
- src/test/java/org/fdu/application/RssNaiveImplMain.java
+ src/main/java/org/fdu/application/RssNaiveImplMain.java
 
 in any IDE.
 
@@ -157,8 +177,19 @@ GitHub Actions have been tested to automatize build/unit test actions.
 
 With autodevops it has been tested on a experimental Gitlab repository.
 
+== How to automatically run the REST API (doc only)
+
+This part of the technical solution will only be documented.
+
+. Add a Dockerfile to the repo in order to build the Docker image, SpringBoot Jar and  API in it.
+. Push the created image in a image repository (dockerhub for instance)
+. [optionnal] Add a compose file to either run a docker service or a docker stack depending of what kind of container you have (1 docker host or 1 docker swarm of many nodes)
+. Instanciate your infra in any public cloud provider (AWS, GCP...)
+. With Github actions (or any CI solution : Gitlab CI, Travis...), automatize the previous steps and the final docker run, compose-up or stack deploy
+
 == Go further
 
 * Use openAPI/swagger to design the API
 * Travis CI
-* Enhance Springboot test to run automatically functionnal tests
+* Enhance/automate Springboot functionnal test
+* Implement automatic run

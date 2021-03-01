@@ -9,6 +9,8 @@
 - Added ordered JSON output support
 - Fixed mismatch feedEntryData URL/description
 
-* 2.0
-- Use openAPI / swagger for API design
-- Travis CI
+* 1.1.1
+- Improve doc
+- Add missing tests
+- Fix POM
+- Code corrections

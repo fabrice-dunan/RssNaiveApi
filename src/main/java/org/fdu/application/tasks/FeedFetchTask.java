@@ -17,6 +17,10 @@ import java.util.TimerTask;
 @AllArgsConstructor
 public class FeedFetchTask extends TimerTask {
 
+    public static final String ISSUE_MSG_FETCH_URL = "Malformed URL retrieval during fetch !";
+    public static final String ISSUE_MSG_FETCH_FEED = "Feed exception during fetch !";
+    public static final String ISSUE_MSG_FETCH_NET = "IO exception during fetch !";
+
     private final Subscription subscription;
 
     @Override
@@ -27,11 +31,11 @@ public class FeedFetchTask extends TimerTask {
             feed = new SyndFeedInput().build(new XmlReader(new URL(feedUrl)));
             log.info("The feed identified by <{}> is refreshed !", feedUrl);
         } catch (MalformedURLException e) {
-            log.error("Malformed URL retrieval during fetch ! <{}>", e.getMessage());
+            log.error(ISSUE_MSG_FETCH_URL, e);
         } catch (FeedException e) {
-            log.error("Feed exception during fetch ! <{}>", e.getMessage());
+            log.error(ISSUE_MSG_FETCH_FEED, e);
         } catch (IOException e) {
-            log.error("IO exception during fetch ! <{}>", e.getMessage());
+            log.error(ISSUE_MSG_FETCH_NET, e);
         }
         subscription.setFeed(feed);
     }

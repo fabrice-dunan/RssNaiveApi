@@ -37,6 +37,10 @@ public interface IRssNaive {
      * <p>
      * This method permits to add a Feed source and the period after which it will be refreshed.
      *
+     * @param feedUrl - String representation of the URL of the feed source
+     * @param pollInterval - Duration representaiton of time between two refreshes of the feed
+     * @throws IOException - Exception XMl parser during acquisition of the feed
+     * @throws FeedException - Exception during the creation of Feed instance
      * @return A subscription
      */
     Subscription addFeed(String feedUrl, Duration pollInterval) throws IOException, FeedException;
@@ -46,6 +50,8 @@ public interface IRssNaive {
      * It may be used to update fetch duration parameters...
      * <p>
      * The map key is the String which represents feed source URL.
+     *
+     * (NOT ASKED)
      *
      * @return HashMap of String, Subscription
      */
