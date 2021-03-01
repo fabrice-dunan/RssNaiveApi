@@ -10,7 +10,7 @@
 - Fixed mismatch feedEntryData URL/description
 
 * 1.1.1
-- Improve doc
+- Improved doc
 - Add missing tests
 - Fix POM
 - Code corrections
